@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Famidash Voice - Proximidad Bedrock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-container">
+        <header>
+            <h1 class="logo">Danilo Ocaña <span>Voice Chat</span></h1>
+            <p class="subtitle">Chat de Voz por Proximidad para Minecraft Bedrock</p>
+        </header>
+
+        <main>
+            <!-- SECCION DEL PIN Y CONEXION A MINECRAFT -->
+            <section class="card connection-card">
+                <h2>1. Conecta tu Minecraft</h2>
+                <p class="instruction-text">Abre el chat en tu juego de Minecraft Bedrock (en tu celular, PC o consola) y escribe el siguiente comando:</p>
+                
+                <div class="command-box">
+                    <span id="mc-command">Generando comando...</span>
+                    <button id="btn-copy" class="btn-icon" title="Copiar comando">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    </button>
+                </div>
+
+                <div class="status-container">
+                    <div class="status-item">
+                        <span class="status-label">Minecraft:</span>
+                        <span id="status-mc" class="status-badge disconnected">Desconectado</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Tu PIN:</span>
+                        <span id="pin-display" class="pin-code">-----</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCION DE CONTROL DE AUDIO -->
+            <section class="card audio-card">
+                <h2>2. Control de Voz</h2>
+                <div class="audio-controls">
+                    <button id="btn-mic" class="btn btn-primary">
+                        <svg id="mic-icon-on" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                        <svg id="mic-icon-off" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"></line><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                        <span id="mic-text">Silenciar Micrófono</span>
+                    </button>
+                </div>
+                <div class="visualizer-container">
+                    <div id="mic-visualizer" class="visualizer-bar"></div>
+                </div>
+            </section>
+
+            <!-- SECCION DE JUGADORES CONECTADOS -->
+            <section class="card players-card">
+                <h2>Jugadores en la sala</h2>
+                <div class="players-list-container">
+                    <ul id="players-list">
+                        <li class="empty-list">Esperando a otros jugadores...</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SECCION DE SIMULACION SOLO -->
+            <section id="dev-panel" class="card dev-card hidden">
+                <h2>🛠️ Modo Simulador (Pruebas Solo)</h2>
+                <p class="instruction-text">¿No tienes con quién probar? Abre esta web en una pestaña de incógnito al mismo tiempo, activa tu micrófono, y usa esta barra para simular que te alejas o te acercas en el juego:</p>
+                <div class="slider-container" style="display:flex; align-items:center; gap: 12px; margin: 10px 0;">
+                    <span style="font-size:0.8rem; color:var(--neon-cyan);">Cerca (0m)</span>
+                    <input type="range" id="sim-distance" min="0" max="35" value="0" style="flex:1; accent-color: var(--neon-cyan); cursor:pointer;">
+                    <span style="font-size:0.8rem; color:var(--neon-pink);">Lejos (35m)</span>
+                </div>
+                <p class="instruction-text" style="font-weight: 600; text-align: center; margin-bottom: 0;">
+                    Distancia simulada: <span id="sim-dist-val" style="color:var(--neon-cyan);">0</span> bloques
+                </p>
+            </section>
+        </main>
+
+        <footer>
+            <p>Hecho con ⚡ para Danilo y su Yendo</p>
+        </footer>
+    </div>
+
+    <!-- Contenedor oculto para los elementos de audio recibidos de los peers -->
+    <div id="audio-container" style="display:none;"></div>
+
+    <script src="client.js"></script>
+</body>
+</html>
